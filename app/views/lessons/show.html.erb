@@ -1,0 +1,87 @@
+<h3><%= @lesson.title %></h3>
+<p>
+  <button class="clipboard u-pull-right">
+    Copy Lesson Url
+  </button>
+  Lesson repo is <%= link_to 'here', @lesson.github_url, target: '_blank' %>
+  <br/>
+  Student link
+  <%= link_to student_lesson_url(@lesson.token), student_lesson_url(@lesson.token), class: 'lesson-url', target: '_blank' %>
+</p>
+
+<h3>
+  Polls for this lesson
+  <span class="parenthetical">
+    (need a <%= link_to "new one", new_lesson_poll_path(@lesson) %>?)
+  </span>
+</h3>
+<ul class="polls">
+  <% @lesson.polls.order(:id).each_with_index do |poll, index| %>
+    <li data-poll-id="<%= poll.id %>"
+        class="poll <%= poll.active? ? 'active' : 'inactive' %>">
+      <button class="u-pull-right toggle-active"><%= poll.active? ? 'Close Poll' : 'Open Poll' %></button>
+      <label><%= link_to "Poll No. #{index + 1}", poll_path(poll) %><span class='vote-count'></span></label>
+      <%= poll.to_html %>
+    </li>
+  <% end %>
+</ul>
+
+<script>
+  $('button.toggle-active').on('click', function (e) {
+    var button = $(this),
+        poll   = button.closest('.poll'),
+        pollId = poll.data('poll-id');
+
+    $.ajax({
+      url: "/polls/" + pollId + "/toggle",
+      method: "post"
+    }).done(function (d) {
+      if (button.text() == "Close Poll") {
+        button.text("Open Poll");
+        poll.addClass('inactive').removeClass('active');
+      } else {
+        button.text("Close Poll");
+        poll.addClass('active').removeClass('inactive');
+      };
+    }).fail(function (d) {
+
+    });
+  });
+
+  $('.clipboard').on('click', function (e) {
+    var el    = document.querySelector('.lesson-url'),
+        range = document.createRange();
+
+    range.selectNode(el);
+    window.getSelection().addRange(range);
+
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+
+    $(this).text('Copy Successful!').addClass('notify');
+  });
+
+  function updatePolls () {
+    $('.poll').each(function (i, thisPoll) {
+      var poll      = $(thisPoll),
+          pollId    = poll.data('poll-id'),
+          voteCount = poll.find('.vote-count');
+
+      $.ajax({
+        url: '/polls/' + pollId + '/stats'
+      }).done(function (d) {
+        console.log(d.choices[0]);
+        var count = 0;
+        for (var j = 0; j < d.choices.length ; j++) {
+          count += d.choices[j].votes;
+        }
+
+        voteCount.text('Total Votes: ' + count);
+      });
+    });
+  };
+
+  // run first, then keep running
+  updatePolls();
+  setInterval(updatePolls, 10000);
+</script>

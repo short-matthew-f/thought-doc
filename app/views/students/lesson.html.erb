@@ -1,0 +1,52 @@
+<h3 class="title"><%= @lesson.title %></h3>
+<p>
+  Lesson can be viewed <%= link_to 'here', @lesson.github_url %>
+</p>
+
+<div class="polls">
+  <% @pending_polls.each do |poll| %>
+    <div class="pending-poll">
+      <h5>The Question</h5>
+      <div class="markdown">
+        <%= poll.to_html %>
+      </div>
+
+      <h5>The Choices </h5>
+      <% poll.choices.each_with_index do |choice, i| %>
+        <div class="pending-poll-choice row">
+          <div class="three columns">
+            <button class="vote u-full-width"
+              data-choice-id="<%= choice.id %>">
+              This is correct!
+            </button>
+          </div>
+          <div class="nine columns">
+            <%= choice.to_html %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="pending-poll">
+    <h3>You have completed all polls at this time.</h3>
+  </div>
+</div>
+
+<script>
+  $('.vote').on('click', function (e) {
+    var button      = $(this),
+        choiceId    = button.data('choice-id'),
+        pendingPoll = button.closest('.pending-poll');
+
+    $.ajax({
+      url: '/students/' + choiceId + '/vote',
+      method: 'POST'
+    }).done(function (d) {
+      pendingPoll.slideUp(500, function () {
+        pendingPoll.remove();
+      });
+    }).fail(function (d) {
+      console.log(d);
+    });
+  });
+</script>

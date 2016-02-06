@@ -1,0 +1,218 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require normalize
+ *= require skeleton
+ *= require_tree .
+ *= require_self
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,400,700|Cutive+Mono);
+
+$primary-dark: red;
+$primary-light: lighten($primary-dark, 20%);
+
+$secondary-dark: steelblue;
+$secondary-light: lighten($secondary-dark, 20%);
+
+$error-bg: lighten(green, 60%);
+$error-fg: black;
+
+$link: lighten(cyan, 20%);
+$link-hover: darken(cyan, 20%);
+
+$button: lighten(gold, 20%);
+$button-hover: gold;
+
+html {
+  background: $primary-light;
+  font-size: 1vw;
+  font-family: 'Raleway', sans-serif;
+
+  @media (max-width: 550px) {
+    font-size: 5.5px;
+  }
+}
+
+body {
+  padding-bottom: 3rem;
+}
+
+button {
+  height: auto;
+  padding: 1rem;
+
+  font-size: 1rem;
+  line-height: 1rem;
+
+  transition: background 0.3s ease, opacity 0.3s ease;
+  background: $button;
+  &:hover {
+    background: $button-hover;
+  }
+}
+
+.notify {
+  background: white;
+}
+
+.error {
+  margin: 0 0 1rem;
+  border: 1px solid $primary-dark;
+
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+
+  background: $error-bg;
+  color: $error-fg;
+}
+
+a {
+  transition: color 0.4s ease, background 0.4s ease;
+
+  text-decoration: none;
+
+  color: $link;
+  font-weight: 700;
+
+  &:hover {
+    color: $link-hover;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.parenthetical {
+  margin-left: 1rem;
+  font-size: 0.6em;
+}
+
+.navbar {
+  border-bottom: 1px solid grey;
+  margin-bottom: 1rem;
+  background: $primary-dark;
+
+  .logo {
+    font-size: 4rem;
+    line-height: 6rem;
+  }
+
+  .navbar-list {
+    margin-right: -2rem;
+
+    li {
+      margin: 0;
+      padding: 0;
+
+      a {
+        display: block;
+        text-decoration: none;
+
+        padding: 1rem 2rem;
+        font-size: 3rem;
+        line-height: 4rem;
+
+
+      }
+    }
+  }
+}
+
+.choice {
+  border: 1px solid black;
+
+  + .choice { border-top: 0; }
+
+  padding: 1rem;
+  transition: background 0.3s linear;
+
+  &.correct {
+    background: $secondary-dark;
+
+    button {
+      opacity: 0;
+    }
+  }
+
+  &.incorrect {
+    background: lighten(desaturate($secondary-dark, 50%), 30%);
+  }
+}
+
+.poll {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid black;
+
+  +.poll {
+    border-top: 0;
+  }
+  &.active {
+    background: $secondary-dark;
+  }
+  &.inactive {
+    background: lighten(desaturate($secondary-dark, 50%), 30%);
+  }
+}
+
+h3.title {
+  border-bottom: 1px solid grey;
+}
+
+form {
+  input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  textarea {
+    font-family: 'Cutive Mono', monospace;
+    resize: none;
+
+    &.question {
+      height: 12em;
+    }
+
+    &.choice {
+      height: 4em;
+    }
+  }
+}
+
+.pending-poll {
+  display: none;
+
+  &:first-of-type {
+    display: block;
+  }
+
+  h5 {
+    color: gold;
+    font-weight: 400;
+  }
+
+  .pending-poll-choice {
+    border: 1px solid black;
+    padding: 1rem;
+    background: $primary-dark;
+  }
+}
+
+.vote-count {
+  margin-left: 3rem;
+  font-size: 1.2rem;
+}

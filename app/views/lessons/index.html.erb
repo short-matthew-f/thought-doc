@@ -1,0 +1,11 @@
+<h3 class="title">
+  Your Lessons
+  <span class="parenthetical">
+    (need a <%= link_to "new one", new_lesson_path %>?)
+  </span>
+</h3>
+
+
+<% @lessons.each do |lesson| %>
+  <h3><%= link_to lesson.title, lesson %></h3>
+<% end %>

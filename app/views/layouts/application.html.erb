@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ThoughtDoc</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container u-cf">
+        <div class="logo u-pull-left">
+          Thought Doctor
+        </div>
+        <% if current_user %>
+        <ul class="navbar-list u-pull-right">
+          <li class='u-pull-right'>
+            <%= link_to "Lessons", lessons_path %>
+          </li>
+        </ul>
+        <% end %>
+      </div>
+    </nav>
+    <div class="container">
+      <% if flash[:error] %>
+        <div class="error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
