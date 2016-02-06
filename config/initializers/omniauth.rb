@@ -1,4 +1,4 @@
-OmniAuth.config.full_host = 'http://localhost:3000'
+OmniAuth.config.full_host = ENV['RAILS_ENV'] == 'production' ? 'https://ga-thought-doc.herokuapp.com/' : 'http://localhost:3000'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
