@@ -19,19 +19,19 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:100,400,700|Cutive+Mono);
 
 $primary-dark: red;
-$primary-light: lighten($primary-dark, 20%);
+$primary-light: #fafafa;
 
-$secondary-dark: steelblue;
-$secondary-light: lighten($secondary-dark, 20%);
+$secondary-dark: red;
+$secondary-light: white;
 
 $error-bg: lighten(green, 60%);
 $error-fg: black;
 
-$link: lighten(cyan, 20%);
-$link-hover: darken(cyan, 20%);
+$link: orange;
+$link-hover: black;
 
-$button: lighten(gold, 20%);
-$button-hover: gold;
+$button: orange;
+$button-hover: $primary-light;
 
 html {
   background: $primary-light;
@@ -57,6 +57,8 @@ button {
 
   font-size: 1rem;
   line-height: 1rem;
+
+  /* box-shadow: 1px 1px 2px black; */
 
   transition: background 0.3s ease, opacity 0.3s ease;
   background: $button;
@@ -128,8 +130,6 @@ ul {
         padding: 1rem 2rem;
         font-size: 3rem;
         line-height: 4rem;
-
-
       }
     }
   }
@@ -159,16 +159,12 @@ ul {
 .poll {
   margin: 0;
   padding: 1rem;
-  border: 1px solid black;
 
-  +.poll {
-    border-top: 0;
-  }
   &.active {
-    background: $secondary-dark;
+    background: $primary-dark;
   }
   &.inactive {
-    background: lighten(desaturate($secondary-dark, 50%), 30%);
+    background: #eee;
   }
 }
 
@@ -205,8 +201,9 @@ form {
   }
 
   h5 {
-    color: gold;
+    color: $primary-dark;
     font-weight: 400;
+    border-bottom: 1px solid $primary-dark;
   }
 
   .pending-poll-choice {
