@@ -152,7 +152,7 @@ ul {
   }
 
   &.incorrect {
-    background: lighten(desaturate($secondary-dark, 50%), 30%);
+    background: $secondary-light;
   }
 }
 
