@@ -40,6 +40,8 @@ GEM
       method_source
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    angular_rails_csrf (1.0.4)
+      rails (>= 3, < 5)
     arel (7.0.0)
     builder (3.2.2)
     byebug (8.2.2)
@@ -175,6 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular_rails_csrf
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

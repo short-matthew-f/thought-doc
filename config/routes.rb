@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
+
   get '/students/:lesson_token', to: 'students#lesson', as: :student_lesson
+  get '/students/:lesson_token/pending', to: 'students#pending'
+  get '/students/:lesson_token/finished', to: 'students#finished'
   post '/students/:choice_id/vote', to: 'students#vote', as: :student_vote
 end

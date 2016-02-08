@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app='lessonApp'>
+  <head>
+    <title>ThoughtDoc</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container u-cf">
+        <div class="logo u-pull-left">
+          Thought <i class="fa fa-stethoscope"></i> Doc
+        </div>
+      </div>
+    </nav>
+    <div class="container"
+      ng-controller="LessonController as lc">
+      <div class="error" ng-show="lc.error">
+        {{ lc.error }}
+      </div>
+      <div class="lesson">
+        <h3 class="title">
+          {{ lc.lesson.title }}
+        </h3>
+        <p>
+          Lesson can be viewed
+          <a ng-href="{{ lc.lesson.githubUrl }}"
+            target="_blank">
+            here
+          </a>
+        </p>
+      </div>
+      <div class="polls">
+        <div class="pending-poll"
+          ng-repeat="poll in lc.pendingPolls">
+          <h5>The Question</h5>
+          <div class="markdown"
+            ng-bind-html="poll.question | unsafe">
+          </div>
+          <h5>The Choices</h5>
+          <div class="pending-poll-choice row"
+            ng-repeat="choice in poll.choices">
+            <div class="three columns">
+              <button class="vote u-full-width"
+                ng-click="lc.assert(poll, choice)">
+                This is correct!
+              </button>
+            </div>
+            <div class="nine columns"
+              ng-bind-html="choice.content | unsafe">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag 'lesson' %>
+  </body>
+</html>

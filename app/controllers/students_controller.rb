@@ -1,17 +1,39 @@
 class StudentsController < ApplicationController
+  def index
+  end
+
   def lesson
+    render :lesson, layout: "student"
+  end
+
+  def pending
     @lesson = Lesson.includes(polls: { choices: :votes })
                 .find_by(token: params[:lesson_token])
-
-    @taken_polls = @lesson.polls.select do |x|
-      x.votes.any? { |y| y.token == cookies[:token] } &&
-      x.active
-    end
 
     @pending_polls = @lesson.polls
       .where(active: true).reject do |x|
       x.votes.any? { |y| y.token == cookies[:token] }
     end
+
+    # render json: {
+    #   lesson: @lesson,
+    #   pendingPolls: @pending_polls
+    # }
+  end
+
+  def finished
+    @lesson = Lesson.includes(polls: { choices: :votes })
+                .find_by(token: params[:lesson_token])
+
+    @finished_polls = @lesson.polls.select do |x|
+      x.votes.any? { |y| y.token == cookies[:token] } &&
+      x.active
+    end
+
+    render json: {
+      lesson: @lesson,
+      finishedPolls: @finished_polls
+    }
   end
 
   def vote
