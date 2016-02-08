@@ -210,10 +210,10 @@ form {
     border: 1px solid black;
     margin-bottom: 0.5rem;
     padding: 1rem;
-    background: $primary-dark;
+    background: $primary-light;
 
     &:hover {
-      background: $secondary-light;
+      background: $primary-dark;
       border: 1px solid $secondary-dark;
       cursor: pointer;
     }
