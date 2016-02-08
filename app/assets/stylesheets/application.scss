@@ -211,8 +211,15 @@ form {
 
   .pending-poll-choice {
     border: 1px solid black;
+    margin-bottom: 0.5rem;
     padding: 1rem;
     background: $primary-dark;
+
+    &:hover {
+      background: $secondary-light;
+      border: 1px solid $secondary-dark;
+      cursor: pointer;
+    }
   }
 }
 

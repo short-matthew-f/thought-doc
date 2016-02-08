@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+    <style>
+      .pending-poll-choice {
+        position: relative;
+        transition: all 0.4s ease;
+      }
+      .pending-poll-choice.correct {
+        transform-origin: center center center;
+        transform: scale(1.05);
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar">
@@ -43,16 +54,13 @@
             ng-bind-html="poll.question | unsafe">
           </div>
           <h5>The Choices</h5>
-          <div class="pending-poll-choice row"
-            ng-repeat="choice in poll.choices">
-            <div class="three columns">
-              <button class="vote u-full-width"
-                ng-click="lc.assert(poll, choice)">
-                This is correct!
-              </button>
-            </div>
-            <div class="nine columns"
-              ng-bind-html="choice.content | unsafe">
+          <div class="pending-poll-choice"
+            ng-class="{ correct: choice.hover }"
+            ng-repeat="choice in poll.choices"
+            ng-click="lc.assert(poll, choice)"
+            ng-mouseenter="choice.hover = true"
+            ng-mouseleave="choice.hover = false">
+            <div ng-bind-html="choice.content | unsafe">
             </div>
           </div>
         </div>
