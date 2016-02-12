@@ -155,6 +155,7 @@ ul {
 
   &.correct {
     background: $primary-dark;
+    color: $primary-light;
   }
 
   &.incorrect {
@@ -175,15 +176,14 @@ ul {
   transition: background 0.5s ease;
 
   &.active {
-    background: #eee;
-  }
-
-  &.inactive {
     background: #888;
-
     .clickable {
       color: white;
     }
+  }
+
+  &.inactive {
+    background: #eee;
   }
 }
 

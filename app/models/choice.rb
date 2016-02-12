@@ -1,8 +1,8 @@
 class Choice < ApplicationRecord
   belongs_to :poll
-  has_many :votes
-
   validates_presence_of :poll
+
+  has_many :votes, dependent: :destroy
 
   validates :content, presence: true
   validates :correct, inclusion: { in: [true, false] }

@@ -37,15 +37,23 @@
           </h4>
           <div class="lesson"
             ng-repeat="lesson in lc.lessons">
-            <h5 class="clickable"
-              ng-click="lesson.viewActive = !lesson.viewActive">
+            <h5>
               {{ lesson.title }}
+              <span class="parenthetical clickable"
+                ng-click="lesson.viewActive = !lesson.viewActive">
+                (view polls)
+              </span>
+              <span class="parenthetical clickable"
+                ng-click="lc.destroyLesson(lesson)">
+                (kill lesson)
+              </span>
             </h5>
-            <p>
+            <p ng-show="lesson.githubUrl">
               Lesson repo is <a ng-href="{{ lesson.githubUrl }}" target="_blank">
                 here
               </a>
-              <br/>
+            </p>
+            <p>
               Student link is <a ng-href="{{ lesson.lessonUrl }}" target="_blank">
                 {{ lesson.lessonUrl }}
               </a>
@@ -67,10 +75,16 @@
                     ng-click="lc.togglePoll(poll)">
                     {{ poll.active ? 'Close Poll' : 'Open Poll' }}
                   </button>
-                  <label
-                    class="clickable"
-                    ng-click="poll.viewActive = !poll.viewActive">
-                    Poll
+                  <label>
+                    <span
+                      class="clickable"
+                      ng-click="poll.viewActive = !poll.viewActive">
+                      Poll
+                    </span>
+                    <span class="parenthetical clickable"
+                      ng-click="lc.destroyPoll(lesson, poll)">
+                      (kill it?)
+                    </span>
                   </label>
                   <div class="markdown"
                     ng-bind-html="poll.question | unsafe">

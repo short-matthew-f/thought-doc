@@ -15,6 +15,16 @@ class PollsController < ApplicationController
     end
   end
 
+  def destroy
+    Poll.destroy(params[:id])
+
+    render json: {
+      error: false,
+      message: "Successful destruction of poll",
+      poll: @poll
+    }
+  end
+
   def stats
     @poll = Poll.find(params[:poll_id])
 

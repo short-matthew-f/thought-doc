@@ -1,7 +1,7 @@
 class Poll < ApplicationRecord
   belongs_to :lesson
 
-  has_many :choices, inverse_of: :poll
+  has_many :choices, inverse_of: :poll, dependent: :destroy
   has_many :votes, through: :choices
 
   accepts_nested_attributes_for :choices,

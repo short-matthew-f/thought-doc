@@ -95,6 +95,16 @@ angular.module('instructorApp', [])
         });
       };
 
+      ctrl.destroyLesson = function (lesson) {
+        $http.delete('/lessons/' + lesson.id)
+          .then(function (res) {
+            var i = ctrl.lessons.indexOf(lesson);
+            ctrl.lessons.splice(i, 1);
+          }, function (res) {
+
+          });
+      };
+
       ctrl.createPoll = function () {
         $http.post('/lessons/' + ctrl.currentLesson.id + '/polls', {
           poll: ctrl.newPoll
@@ -108,6 +118,16 @@ angular.module('instructorApp', [])
         }, function (res) {
           console.log(res);
         });
+      };
+
+      ctrl.destroyPoll = function (lesson, poll) {
+        $http.delete('/polls/' + poll.id)
+          .then(function (res) {
+            var i = lesson.polls.indexOf(poll);
+            lesson.polls.splice(i, 1);
+          }, function (res) {
+
+          });
       };
 
       ctrl.markCorrect = function (poll, choice) {

@@ -2,10 +2,10 @@ class Lesson < ApplicationRecord
   before_save :ensure_presence_of_token
 
   belongs_to :user
-  has_many   :polls
+  has_many   :polls, dependent: :destroy
 
   validates :title, presence: true
-  validates :github_url, presence: true, format: {
+  validates :github_url, allow_blank: true, format: {
     with: /github.com/,
     message: 'should point to github repo for lesson'
   }

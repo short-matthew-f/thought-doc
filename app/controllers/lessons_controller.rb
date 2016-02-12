@@ -24,6 +24,16 @@ class LessonsController < ApplicationController
     end
   end
 
+  def destroy
+    Lesson.destroy(params[:id])
+
+    render json: {
+      error: false,
+      message: "Successful destruction of poll",
+      poll: @poll
+    }
+  end
+
   private
 
   def lesson_params
