@@ -76,10 +76,14 @@
                     {{ poll.active ? 'Close Poll' : 'Open Poll' }}
                   </button>
                   <label>
+                    Poll
+                    <span class="parenthetical">
+                      Total Votes: {{ poll.totalVotes }}
+                    </span>
                     <span
-                      class="clickable"
+                      class="parenthetical clickable"
                       ng-click="poll.viewActive = !poll.viewActive">
-                      Poll
+                      (view choices)
                     </span>
                     <span class="parenthetical clickable"
                       ng-click="lc.destroyPoll(lesson, poll)">
@@ -96,6 +100,9 @@
                     </label>
                     <div ng-repeat="choice in poll.choices"
                       class="choice {{ choice.correct ? 'correct' : 'incorrect' }}">
+                      <label>
+                        Total Votes: {{ choice.totalVotes }}
+                      </label>
                       <div class="markdown"
                         ng-bind-html="choice.content | unsafe"
                         ng-click="lc.markCorrect(poll, choice)">
