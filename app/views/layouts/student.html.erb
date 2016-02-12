@@ -44,7 +44,7 @@
             ng-bind-html="poll.question | unsafe">
           </div>
           <h5>The Choices</h5>
-          <div class="pending-poll-choice"
+          <div class="choice"
             ng-repeat="choice in poll.choices"
             ng-click="lc.assert(poll, choice)">
             <div ng-bind-html="choice.content | unsafe">

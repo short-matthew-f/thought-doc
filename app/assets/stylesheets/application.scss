@@ -145,22 +145,28 @@ ul {
 
 .choice {
   border: 1px solid black;
-
-  + .choice { border-top: 0; }
+  margin-bottom: 0.5rem;
 
   padding: 1rem;
   transition: background 0.3s linear;
 
-  &.correct {
-    background: $secondary-dark;
+  position: relative;
+  transition: all 0.4s ease;
 
-    button {
-      opacity: 0;
-    }
+  &.correct {
+    background: $primary-dark;
   }
 
   &.incorrect {
-    background: $secondary-light;
+    background: $primary-light;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: $primary-dark;
+
+    transform-origin: center center center;
+    transform: scale(1.05);
   }
 }
 
@@ -169,17 +175,15 @@ ul {
   transition: background 0.5s ease;
 
   &.active {
-    background: $primary-dark;
-
-    a {
-      color: $primary-light;
-      &:hover {
-        color: $link-hover;
-      }
-    }
-  }
-  &.inactive {
     background: #eee;
+  }
+
+  &.inactive {
+    background: #888;
+
+    .clickable {
+      color: white;
+    }
   }
 }
 
@@ -247,23 +251,8 @@ form {
     border-bottom: 1px solid $primary-dark;
   }
 
-  .pending-poll-choice {
-    border: 1px solid black;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-    background: $primary-light;
-
-    position: relative;
-    transition: all 0.4s ease;
-
-    &:hover {
-      background: $primary-dark;
-      border: 1px solid $secondary-dark;
-      cursor: pointer;
-
-      transform-origin: center center center;
-      transform: scale(1.05);
-    }
+  .choice:hover {
+    background: $primary-dark;
   }
 }
 
@@ -279,7 +268,7 @@ form {
   top: 10vh;
   bottom: 10vh;
   left: 20vw;
-  
+
   border: 3px solid black;
   border-radius: 1rem;
 

@@ -67,11 +67,23 @@
                     ng-click="lc.togglePoll(poll)">
                     {{ poll.active ? 'Close Poll' : 'Open Poll' }}
                   </button>
-                  <label>
-                    <a ng-href="#">Poll</a>
+                  <label
+                    class="clickable"
+                    ng-click="poll.viewActive = !poll.viewActive">
+                    Poll
                   </label>
                   <div class="markdown"
                     ng-bind-html="poll.question | unsafe">
+                  </div>
+                  <div class="choices"
+                    ng-show="poll.viewActive">
+                    <div ng-repeat="choice in poll.choices"
+                      class="choice {{ choice.correct ? 'correct' : 'incorrect' }}">
+                      <div class="markdown"
+                        ng-bind-html="choice.content | unsafe"
+                        ng-click="lc.markCorrect(poll, choice)">
+                      </div>
+                    </div>
                   </div>
                 </li>
               </ul>

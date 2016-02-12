@@ -12,6 +12,7 @@ json.lessons(@lessons) do |lesson|
     json.choices(poll.choices) do |choice|
       json.id       choice.id
       json.content  choice.content
+      json.correct  choice.correct
     end
   end
 end

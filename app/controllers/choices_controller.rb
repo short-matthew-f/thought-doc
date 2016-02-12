@@ -1,6 +1,6 @@
 class ChoicesController < ApplicationController
   before_filter :ensure_current_user
-  
+
   def mark_correct
     @choice = Choice.find(params[:choice_id])
     @choice.update(correct: true)

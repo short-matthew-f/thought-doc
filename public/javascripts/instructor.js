@@ -110,5 +110,20 @@ angular.module('instructorApp', [])
         });
       };
 
+      ctrl.markCorrect = function (poll, choice) {
+        $http.post('/choices/' + choice.id + '/mark_correct')
+          .then(function (res) {
+            poll.choices.forEach(function (c) {
+              if (c == choice) {
+                c.correct = true;
+              } else {
+                c.correct = false;
+              }
+            })
+          }, function (res) {
+
+          });
+      };
+
       ctrl.getLessons();
   }]);
