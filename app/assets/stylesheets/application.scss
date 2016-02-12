@@ -273,15 +273,13 @@ form {
 }
 
 .modal {
-  position: fixed;
+  position: absolute;
   width: 60vw;
 
   top: 10vh;
   bottom: 10vh;
   left: 20vw;
-
-  overflow: scroll;
-
+  
   border: 3px solid black;
   border-radius: 1rem;
 
