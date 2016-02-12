@@ -1,30 +1,27 @@
 class LessonsController < ApplicationController
   before_filter :ensure_current_user
 
-  def index
-    @lessons = current_user.lessons
+  def home
+    render :home, layout: 'instructor'
   end
 
-  def new
-    @lesson = Lesson.new
+  def index
+    @lessons = Lesson.includes(polls: :choices)
+                .where(user: current_user)
   end
 
   def create
-    @lesson = current_user.lessons.new(lesson_params)
+    @lesson = current_user
+                .lessons.new(lesson_params)
 
     if @lesson.save
-      redirect_to lessons_path
+      render json: @lesson
     else
-      flash[:error] = @lesson.errors.full_messages.to_sentence
-      render :new
+      render json: {
+        error: true,
+        message: @lesson.errors.full_messages.to_sentence
+      }
     end
-  end
-
-  def show
-    @lesson = Lesson.includes(:polls)
-                    .find(params[:id])
-
-    redirect_to current_user unless @lesson.user_id == current_user.id
   end
 
   private

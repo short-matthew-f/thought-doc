@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app="instructorApp">
+  <head>
+    <title>ThoughtDoc</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+  </head>
+  <body ng-controller="LessonController as lc">
+    <div id="page-wrap"
+      ng-class="{ 'modal-active': lc.modalActive }">
+      <nav class="navbar">
+        <div class="container u-cf">
+          <div class="logo u-pull-left">
+            Thought <i class="fa fa-stethoscope"></i> Doc
+          </div>
+          <ul class="navbar-list u-pull-right">
+            <li class='u-pull-right'>
+              <%= link_to "Lessons", lessons_path %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="lessons">
+          <h4 class="title">
+            Your lessons
+            <span class='parenthetical clickable'
+              ng-click="lc.showLessonForm()">
+              (need a new one?)
+            </span>
+          </h4>
+          <div class="lesson"
+            ng-repeat="lesson in lc.lessons">
+            <h5 class="clickable"
+              ng-click="lesson.viewActive = !lesson.viewActive">
+              {{ lesson.title }}
+            </h5>
+            <p>
+              Lesson repo is <a ng-href="{{ lesson.githubUrl }}" target="_blank">
+                here
+              </a>
+              <br/>
+              Student link is <a ng-href="{{ lesson.lessonUrl }}" target="_blank">
+                {{ lesson.lessonUrl }}
+              </a>
+            </p>
+
+            <div ng-show="lesson.viewActive">
+              <h5>
+                Polls for this lesson
+                <span class="parenthetical clickable"
+                  ng-click="lc.showPollForm(lesson)">
+                  (need a new one?)
+                </span>
+              </h5>
+              <ul class="polls"
+                ng-repeat="poll in lesson.polls">
+                <li class="poll"
+                  ng-class="poll.active ? 'active' : 'inactive'">
+                  <button class="u-pull-right"
+                    ng-click="lc.togglePoll(poll)">
+                    {{ poll.active ? 'Close Poll' : 'Open Poll' }}
+                  </button>
+                  <label>
+                    <a ng-href="#">Poll</a>
+                  </label>
+                  <div class="markdown"
+                    ng-bind-html="poll.question | unsafe">
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal lesson-modal"
+      ng-class="{ 'active': lc.newLessonActive }">
+      <div class="error"
+        ng-show="lc.lessonError">
+        {{ lc.lessonError }}
+      </div>
+      <form ng-submit="lc.createLesson()">
+        <input type="text"
+          ng-model="lc.newLesson.title"
+          placeholder="Title of your lesson">
+        <input type="text"
+          ng-model="lc.newLesson.github_url"
+          placeholder="URL to the lesson notes on GitHub">
+        <input type="submit">
+      </form>
+      <button ng-click="lc.hideLessonForm()">
+        Cancel
+      </button>
+    </div>
+
+    <div class="modal poll-modal"
+      ng-class="{ 'active': lc.newPollActive }">
+      <div class="error"
+        ng-show="lc.pollError">
+        {{ lc.pollError }}
+      </div>
+      <form ng-submit="lc.createPoll()">
+        <textarea class="poll-question"
+          ng-model="lc.newPoll.question"
+          placeholder="Question you wish to ask.  Remember that GitHub markdown is supported."></textarea>
+        <textarea class="poll-choice"
+          ng-model="lc.newPoll.choices_attributes[0].content"
+          placeholder="Possible Answer"></textarea>
+        <textarea class="poll-choice"
+          ng-model="lc.newPoll.choices_attributes[1].content"
+          placeholder="Possible Answer"></textarea>
+        <textarea class="poll-choice"
+          ng-model="lc.newPoll.choices_attributes[2].content"
+          placeholder="Possible Answer"></textarea>
+        <textarea class="poll-choice"
+          ng-model="lc.newPoll.choices_attributes[3].content"
+          placeholder="Possible Answer"></textarea>
+        <input type="submit">
+      </form>
+      <button ng-click="lc.hidePollForm()">
+        Cancel
+      </button>
+    </div>
+
+    <%= javascript_include_tag 'instructor' %>
+  </body>
+</html>

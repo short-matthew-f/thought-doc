@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  def new
+    redirect_to instructor_home_path if current_user
+  end
+
   def create
     if session_params[:email].include?('@generalassemb.ly')
       @user = User.find_or_initialize_by(email: session_params[:email])
@@ -6,7 +10,7 @@ class SessionsController < ApplicationController
 
       if @user.valid?
         log_in!(@user)
-        redirect_to lessons_path
+        redirect_to instructor_home_path
       else
         redirect_to root_path
       end

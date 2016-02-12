@@ -27,10 +27,10 @@ $secondary-light: white;
 $error-bg: lighten(green, 60%);
 $error-fg: black;
 
-$link: orange;
+$link: #996699;
 $link-hover: black;
 
-$button: orange;
+$button: lighten(#006699, 10%);
 $button-hover: $primary-light;
 
 html {
@@ -58,12 +58,16 @@ button {
   font-size: 1rem;
   line-height: 1rem;
 
-  /* box-shadow: 1px 1px 2px black; */
+  transition: border 0.5s ease, color 0.5s ease;
 
-  transition: background 0.3s ease, opacity 0.3s ease;
+  color: black;
+  border: 2px solid black;
+
   background: $button;
+
   &:hover {
-    background: $button-hover;
+    color: white;
+    border: 2px solid white;
   }
 }
 
@@ -76,7 +80,6 @@ button {
   border: 1px solid $primary-dark;
 
   padding: 0.5rem 1rem;
-  font-size: 2rem;
 
   background: $error-bg;
   color: $error-fg;
@@ -127,6 +130,11 @@ ul {
         display: block;
         text-decoration: none;
 
+        color: white;
+        &:hover {
+          color: black;
+        }
+
         padding: 1rem 2rem;
         font-size: 3rem;
         line-height: 4rem;
@@ -157,15 +165,49 @@ ul {
 }
 
 .poll {
+  padding: 1rem;
+  transition: background 0.5s ease;
+
   &.active {
     background: $primary-dark;
+
+    a {
+      color: $primary-light;
+      &:hover {
+        color: $link-hover;
+      }
+    }
   }
   &.inactive {
     background: #eee;
   }
 }
 
-h3.title {
+.lessons {
+  .lesson + .lesson {
+    margin-top: 1rem;
+    border-top: 3px solid red;
+  }
+
+  h4, h5, p {
+    margin: 0.5rem 0;
+  }
+
+  h4, h5 {
+    font-weight: 400;
+  }
+  .clickable {
+    color: $link;
+    transition: color 0.5s ease;
+
+    &:hover {
+      color: $link-hover;
+      cursor: pointer;
+    }
+  }
+}
+
+.title {
   border-bottom: 1px solid grey;
 }
 
@@ -180,14 +222,16 @@ form {
     font-family: 'Cutive Mono', monospace;
     resize: none;
 
-    &.question {
-      height: 12em;
+    &.poll-question {
+      height: 8em;
     }
 
-    &.choice {
-      height: 4em;
+    &.poll-choice {
+      height: 3em;
     }
   }
+
+  margin-bottom: 1rem;
 }
 
 .pending-poll {
@@ -209,10 +253,16 @@ form {
     padding: 1rem;
     background: $primary-light;
 
+    position: relative;
+    transition: all 0.4s ease;
+
     &:hover {
       background: $primary-dark;
       border: 1px solid $secondary-dark;
       cursor: pointer;
+
+      transform-origin: center center center;
+      transform: scale(1.05);
     }
   }
 }
@@ -220,4 +270,35 @@ form {
 .vote-count {
   margin-left: 3rem;
   font-size: 1.2rem;
+}
+
+.modal {
+  position: fixed;
+  width: 60vw;
+
+  top: 10vh;
+  bottom: 10vh;
+  left: 20vw;
+
+  overflow: scroll;
+
+  border: 3px solid black;
+  border-radius: 1rem;
+
+  padding: 1rem;
+
+  background: $primary-light;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+#page-wrap {
+  transition: all 0.4s linear;
+  &.modal-active {
+    -webkit-filter: blur(5px) grayscale(50%);
+    transform: scale(0.96);
+  }
 }

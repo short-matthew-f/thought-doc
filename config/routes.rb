@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :votes
-  root to: 'application#index'
+  root to: 'sessions#new'
 
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/auth', to: 'sessions#destroy', as: :sign_out
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/instructors', to: 'lessons#home', as: :instructor_home
 
   get '/students/:lesson_token', to: 'students#lesson', as: :student_lesson
   get '/students/:lesson_token/pending', to: 'students#pending'

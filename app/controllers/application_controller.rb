@@ -8,39 +8,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_tracking_cookie
   before_filter :keep_user_logged_in
 
-  def index
-    redirect_to lessons_path if current_user
-
-    stuff = <<-HERE.strip_heredoc
-      1. We could be looking at Ruby:
-
-          ```ruby
-          joe_bob = {
-            thing: "Something",
-            five: [
-              1, 2, 3, 4, 5
-            ]
-          }
-
-          puts joe_bob[:five].sample(2)
-          ```
-
-      2. Or JavaScript:
-
-          ```javascript
-          var x = function () {
-            return 3;
-          }
-
-          x(5); // 3
-          ```
-    HERE
-
-    markdown = Redcarpet::Markdown.new(HTMLwithPygments, fenced_code_blocks: true)
-
-    @stuff_as_html = markdown.render(stuff)
-  end
-
   private
 
   def current_user

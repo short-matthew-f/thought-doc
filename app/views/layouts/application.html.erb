@@ -4,10 +4,12 @@
     <title>ThoughtDoc</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -15,21 +17,9 @@
         <div class="logo u-pull-left">
           Thought <i class="fa fa-stethoscope"></i> Doc
         </div>
-        <% if current_user %>
-        <ul class="navbar-list u-pull-right">
-          <li class='u-pull-right'>
-            <%= link_to "Lessons", lessons_path %>
-          </li>
-        </ul>
-        <% end %>
       </div>
     </nav>
     <div class="container">
-      <% if flash[:error] %>
-        <div class="error">
-          <%= flash[:error] %>
-        </div>
-      <% end %>
       <%= yield %>
     </div>
   </body>

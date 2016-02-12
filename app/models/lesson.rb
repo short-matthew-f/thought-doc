@@ -6,7 +6,7 @@ class Lesson < ApplicationRecord
 
   validates :title, presence: true
   validates :github_url, presence: true, format: {
-    with: /\Ahttps:\/\/github.com/,
+    with: /github.com/,
     message: 'should point to github repo for lesson'
   }
 
