@@ -266,11 +266,10 @@ form {
   width: 60vw;
 
   top: 10vh;
-  bottom: 10vh;
   left: 20vw;
 
-  border: 3px solid black;
-  border-radius: 1rem;
+  border: 2px solid black;
+  /* box-shadow: 0 2px 2px 3px black; */
 
   padding: 1rem;
 
@@ -283,9 +282,9 @@ form {
 }
 
 #page-wrap {
-  transition: all 0.4s linear;
+  transition: all 0.5s linear;
   &.modal-active {
-    -webkit-filter: blur(5px) grayscale(50%);
+    -webkit-filter: blur(5px) grayscale(20%);
     transform: scale(0.96);
   }
 }

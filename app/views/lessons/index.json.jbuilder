@@ -1,10 +1,10 @@
-json.lessons(@lessons) do |lesson|
+json.lessons(@lessons.order(created_at: :desc)) do |lesson|
   json.id         lesson.id
   json.title      lesson.title
   json.githubUrl  lesson.github_url
   json.lessonUrl  root_url + "students/" + lesson.token
 
-  json.polls(lesson.polls) do |poll|
+  json.polls(lesson.polls.order(:created_at)) do |poll|
     json.id       poll.id
     json.question poll.to_html
     json.active   poll.active
