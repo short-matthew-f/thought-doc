@@ -1,6 +1,10 @@
 class PollsController < ApplicationController
   before_filter :ensure_current_user
 
+  def show
+    @poll = Poll.includes(:choices).find(params[:id])
+  end
+
   def create
     @lesson = Lesson.find(params[:lesson_id])
     @poll   = @lesson.polls.new(poll_params)

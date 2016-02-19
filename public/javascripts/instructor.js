@@ -145,5 +145,17 @@ angular.module('instructorApp', [])
           });
       };
 
+      ctrl.toggleChoices = function (poll) {
+        $http.get('/polls/' + poll.id + '.json')
+          .then(function (res) {
+            var update = res.data;
+
+            poll.totalVotes = update.totalVotes;
+            poll.choices    = update.choices;
+
+            poll.viewActive = !poll.viewActive;
+          });
+      };
+
       ctrl.getLessons();
   }]);
